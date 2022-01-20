@@ -1,6 +1,10 @@
 const {Server} = require("socket.io");
 
-const io = new Server({cors: {origin: "https://testhelper-client.herokuapp.com", methods: ["GET", "POST"]}});
+
+const port = process.env.PORT || 5000
+// io.listen(port);
+console.log("Server listening on " + port)
+const io = new Server(port, {cors: {origin: "https://testhelper-client.herokuapp.com", methods: ["GET", "POST"]}});
 const test = {
 	"demo": {
 		"0": {
@@ -100,7 +104,3 @@ io.on("connection", (socket) => {
 		socket.broadcast.emit("newquestion", test[code])
 	})
 });
-
-const port = process.env.PORT || 5000
-io.listen(port);
-console.log("Server listening on " + port)
