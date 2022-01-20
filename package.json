@@ -1,0 +1,25 @@
+{
+  "name": "testhelper",
+  "version": "0.0.1",
+  "description": "A Web created for multicolaborative test",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/devewok/testhelper-server.git"
+  },
+  "author": "bsjaramillo",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/devewok/testhelper-server/issues"
+  },
+  "homepage": "https://github.com/devewok/testhelper-server#readme",
+  "dependencies": {
+    "socket.io": "^4.4.1"
+  },
+  "engines": {
+    "node": "14.x"
+  }
+}
