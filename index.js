@@ -4,7 +4,13 @@ const {Server} = require("socket.io");
 const port = process.env.PORT || 5000
 // io.listen(port);
 console.log("Server listening on " + port)
-const io = new Server(port, {cors: {origin: "https://testhelper-client.herokuapp.com", methods: ["GET", "POST"]}});
+const io = new Server(port, {
+	cors: {
+		origin: "https://testhelper-client.herokuapp.com",
+		methods: ["GET", "POST"]
+	},
+	path: "/api/",
+});
 const test = {
 	"demo": {
 		"0": {
