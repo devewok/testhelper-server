@@ -1,93 +1,25 @@
+const express = require("express");
+const {createServer} = require("http");
 const {Server} = require("socket.io");
 
+const app = express();
+const httpServer = createServer(app);
 
-const port = process.env.PORT || 5000
-// io.listen(port);
-console.log("Server listening on " + port)
-const io = new Server(port, {
+const data = require("./data.js");
+const test = data.demo
+
+const io = new Server(httpServer, {
 	cors: {
 		origin: "https://testhelper-client.herokuapp.com",
+		// origin: "http://localhost:3000",
 		methods: ["GET", "POST"]
 	},
 	path: "/api/",
 });
-const test = {
-	"demo": {
-		"0": {
-			"0": {
-				"question": "Pregunta 1",
-				"options": {
-					"1": {
-						"text": "Opcion 1",
-						"votes": 0
-					},
-					"2": {
-						"text": "Opcion 2",
-						"votes": 0
-					},
-					"3": {
-						"text": "Opcion 3",
-						"votes": 0
-					},
-					"4": {
-						"text": "Opcion 4",
-						"votes": 0
-					}
-				}
-			},
-			"id": 0
-		},
-		"1": {
-			"1": {
-				"question": "Pregunta 1",
-				"options": {
-					"1": {
-						"text": "Opcion 1",
-						"votes": 0
-					},
-					"2": {
-						"text": "Opcion 2",
-						"votes": 0
-					},
-					"3": {
-						"text": "Opcion 3",
-						"votes": 0
-					},
-					"4": {
-						"text": "Opcion 4",
-						"votes": 0
-					}
-				}
-			},
-			"id": 1
-		},
-		"2": {
-			"2": {
-				"question": "Pregunta 1",
-				"options": {
-					"1": {
-						"text": "Opcion 1",
-						"votes": 0
-					},
-					"2": {
-						"text": "Opcion 2",
-						"votes": 0
-					},
-					"3": {
-						"text": "Opcion 3",
-						"votes": 0
-					},
-					"4": {
-						"text": "Opcion 4",
-						"votes": 0
-					}
-				}
-			},
-			"id": 2
-		}
-	}
-}
 
+app.get("/", (req, res) => {
+	res.sendFile(__dirname + "/index.html")
+})
 io.on("connection", (socket) => {
 	socket.on("loaddata", (code) => {
 		console.log("New helper, sending data")
@@ -110,3 +42,7 @@ io.on("connection", (socket) => {
 		socket.broadcast.emit("newquestion", test[code])
 	})
 });
+const port = process.env.PORT || 5000
+// io.listen(port);
+console.log("Server listening on " + port)
+httpServer.listen(port)
